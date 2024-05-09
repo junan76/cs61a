@@ -27,7 +27,10 @@ def num_eights(n):
     ...       ['Assign', 'AnnAssign', 'AugAssign', 'NamedExpr', 'For', 'While'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    if n < 10:
+        return 1 if n == 8 else 0
+    
+    return (1 if n % 10 == 8 else 0) + num_eights(n // 10)
 
 
 def digit_distance(n):
@@ -49,7 +52,11 @@ def digit_distance(n):
     ...       ['For', 'While'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    if n < 10:
+        return 0
+    
+    d1, d2 = n % 10, n // 10 % 10
+    return abs(d1 - d2) + digit_distance(n // 10)
 
 
 def interleaved_sum(n, odd_func, even_func):
@@ -71,7 +78,16 @@ def interleaved_sum(n, odd_func, even_func):
     >>> check(HW_SOURCE_FILE, 'interleaved_sum', ['While', 'For', 'Mod']) # ban loops and %
     True
     """
-    "*** YOUR CODE HERE ***"
+    def sum_odd_k_to_n(k, n):
+        if k > n:
+            return 0
+        
+        sum = odd_func(k)
+        sum += 0 if k + 1 > n else even_func(k + 1)
+        sum += sum_odd_k_to_n(k + 2, n)
+        return sum
+    
+    return sum_odd_k_to_n(1, n)
 
 
 def next_larger_coin(coin):
@@ -125,7 +141,8 @@ def count_coins(total):
     >>> check(HW_SOURCE_FILE, 'count_coins', ['While', 'For'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    pass
+
 
 
 def print_move(origin, destination):
